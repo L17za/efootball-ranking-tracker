@@ -65,9 +65,15 @@ plot_span_df = df[
 # ==========================================
 plt.figure(figsize=(14, 8))
 
-# GitHub Actions用のフォント設定
-plt.rcParams['font.family'] = ['Yu Gothic', 'Meiryo', 'MS Gothic', 'Hiragino Sans', 'DejaVu Sans']
-
+# フォント設定（GitHub Actions用に Noto Sans CJK を優先）
+plt.rcParams['font.family'] = [
+    'Noto Sans CJK JP',
+    'Yu Gothic',
+    'Meiryo',
+    'MS Gothic',
+    'Hiragino Sans',
+    'DejaVu Sans'
+]
 
 colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b',
           '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
