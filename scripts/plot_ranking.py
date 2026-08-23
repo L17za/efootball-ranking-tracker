@@ -47,7 +47,7 @@ df = df.dropna(subset=['datetime']).sort_values('datetime').reset_index(drop=Tru
 # ==========================================
 # 頻出レート抽出
 # ==========================================
-top_n = 10
+top_n = 13
 frequent_rates = df['勝ち点'].value_counts().head(top_n).index.tolist()
 ordered_rates = sorted(frequent_rates)
 
