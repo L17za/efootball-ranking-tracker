@@ -19,12 +19,14 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 TSV_PATH = DATA_DIR / "Jイベレート変動.tsv"
 
 # ==========================================
-# 時刻設定（JST固定）
+# 時刻設定（JSTのnaive datetimeとして扱う）
 # ==========================================
-JST = timezone(timedelta(hours=9))
-PLOT_START_TIME = datetime(2026, 8, 21, 11, 0, tzinfo=JST)
-PLOT_END_TIME   = datetime(2026, 8, 24, 10, 55, tzinfo=JST)
-CURRENT_TIME    = datetime.now(JST)
+JST = timezone(timedelta(hours=9))   # now() を取るときだけ使用
+
+# すべて timezone を付けない（naive）で統一
+PLOT_START_TIME = datetime(2026, 8, 21, 11, 0)
+PLOT_END_TIME   = datetime(2026, 8, 24, 10, 55)
+CURRENT_TIME    = datetime.now(JST).replace(tzinfo=None)   # ← 重要：naiveにする
 
 print(f"TSVを読み込みます: {TSV_PATH}")
 df = pd.read_csv(TSV_PATH, sep='\t')
@@ -34,7 +36,8 @@ def make_dt(row):
     try:
         m, d = map(int, str(row['日付']).split('/'))
         h, mi = map(int, str(row['時間']).split(':'))
-        return datetime(2026, m, d, h, mi, tzinfo=JST)
+        # timezone を付けない（naive）
+        return datetime(2026, m, d, h, mi)
     except:
         return None
 
