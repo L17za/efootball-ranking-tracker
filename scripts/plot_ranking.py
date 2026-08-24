@@ -25,7 +25,7 @@ JST = timezone(timedelta(hours=9))   # now() を取るときだけ使用
 
 # すべて timezone を付けない（naive）で統一
 PLOT_START_TIME = datetime(2026, 8, 21, 11, 0)
-PLOT_END_TIME   = datetime(2026, 8, 24, 10, 55)
+PLOT_END_TIME   = datetime(2026, 8, 24, 11, 00)
 CURRENT_TIME    = datetime.now(JST).replace(tzinfo=None)   # ← 重要：naiveにする
 
 print(f"TSVを読み込みます: {TSV_PATH}")
