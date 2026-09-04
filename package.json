@@ -1,0 +1,23 @@
+{
+  "name": "efootball-ranking-tracker",
+  "version": "1.0.0",
+  "description": "efootball の順位イベントに関連します。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeruhitoAnno/efootball-ranking-tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeruhitoAnno/efootball-ranking-tracker/issues"
+  },
+  "homepage": "https://github.com/TeruhitoAnno/efootball-ranking-tracker#readme"
+}

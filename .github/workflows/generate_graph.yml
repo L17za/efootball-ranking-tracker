@@ -3,7 +3,7 @@ name: Generate Ranking Graph
 on:
   push:
     paths:
-      - 'data/Jイベレート変動.tsv'   # このファイルが更新されたときだけ動く
+      - 'data/20260904_ランイベ.tsv'   # このファイルが更新されたときだけ動く
   workflow_dispatch:               # 手動実行も可能にする
 
 jobs:

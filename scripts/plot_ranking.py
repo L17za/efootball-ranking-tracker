@@ -16,7 +16,7 @@ DATA_DIR = BASE_DIR / "data"
 OUTPUT_DIR = BASE_DIR / "output"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
-TSV_PATH = DATA_DIR / "Jイベレート変動.tsv"
+TSV_PATH = DATA_DIR / "20260904_ランイベ.tsv"
 
 # ==========================================
 # 時刻設定（JSTのnaive datetimeとして扱う）
@@ -24,8 +24,8 @@ TSV_PATH = DATA_DIR / "Jイベレート変動.tsv"
 JST = timezone(timedelta(hours=9))   # now() を取るときだけ使用
 
 # すべて timezone を付けない（naive）で統一
-PLOT_START_TIME = datetime(2026, 8, 21, 11, 0)
-PLOT_END_TIME   = datetime(2026, 8, 24, 11, 00)
+PLOT_START_TIME = datetime(2026, 9, 4, 11, 0)
+PLOT_END_TIME   = datetime(2026, 9, 7, 11, 00)
 CURRENT_TIME    = datetime.now(JST).replace(tzinfo=None)   # ← 重要：naiveにする
 
 print(f"TSVを読み込みます: {TSV_PATH}")
@@ -127,8 +127,8 @@ plt.annotate(
     bbox=dict(boxstyle='round,pad=0.6', facecolor='white', edgecolor='#666666', alpha=0.9)
 )
 
-# 40万位ライン
-ax.axhline(y=400000, color='crimson', linestyle='--', linewidth=1.8, label='目標 40万位ボーダー')
+# 70万位ライン
+ax.axhline(y=700000, color='crimson', linestyle='--', linewidth=1.8, label='目標 70万位ボーダー')
 
 # 現在時刻ライン
 if PLOT_START_TIME <= CURRENT_TIME <= PLOT_END_TIME:
@@ -142,7 +142,7 @@ if PLOT_START_TIME <= CURRENT_TIME <= PLOT_END_TIME:
     )
 
 min_rank = plot_span_df['順位'].min()
-ax.set_ylim(bottom=min_rank * 0.9, top=420000)
+ax.set_ylim(bottom=min_rank * 0.9, top=700000 * 1.05)  # 上限は 70万位ラインの少し上まで
 ax.set_xlim(PLOT_START_TIME, PLOT_END_TIME)
 
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d %H:%M'))
@@ -151,13 +151,13 @@ plt.xticks(rotation=45)
 ax.yaxis.set_major_formatter('{x:,.0f}')
 
 plt.title(
-    f'頻出勝ち点における順位推移（40万位ボーダー基準）',
+    f'頻出勝ち点における順位推移（70万位ボーダー基準）',
     fontsize=13,
     fontweight='bold',
     pad=15
 )
 plt.xlabel('日時')
-plt.ylabel('順位 (上が40万位ボーダーに接近)')
+plt.ylabel('順位 (上が70万位ボーダーに接近)')
 plt.grid(True, linestyle='--', alpha=0.6)
 plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
 
