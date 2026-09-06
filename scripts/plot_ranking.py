@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
+import math
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -27,6 +28,10 @@ JST = timezone(timedelta(hours=9))   # now() を取るときだけ使用
 PLOT_START_TIME = datetime(2026, 9, 4, 11, 0)
 PLOT_END_TIME   = datetime(2026, 9, 7, 11, 00)
 CURRENT_TIME    = datetime.now(JST).replace(tzinfo=None)   # ← 重要：naiveにする
+
+
+def ceil_to_1_decimal(value):
+    return math.ceil(value * 10) / 10
 
 print(f"TSVを読み込みます: {TSV_PATH}")
 df = pd.read_csv(TSV_PATH, sep='\t')
@@ -140,6 +145,11 @@ if PLOT_START_TIME <= CURRENT_TIME <= PLOT_END_TIME:
         alpha=0.8,
         label=f'現在時刻 {CURRENT_TIME.strftime("%m/%d %H:%M")}'
     )
+
+# 最終締め切りまでの残り時間（小数第1位まで、2位以下切り上げ）
+remaining_hours = max((PLOT_END_TIME - CURRENT_TIME).total_seconds() / 3600, 0)
+remaining_hours_rounded = ceil_to_1_decimal(remaining_hours)
+ax.plot([], [], linestyle='None', label=f'最終締め切りまで後 {remaining_hours_rounded:.1f}時間')
 
 min_rank = plot_span_df['順位'].min()
 ax.set_ylim(bottom=min_rank * 0.9, top=700000 * 1.05)  # 上限は 70万位ラインの少し上まで
